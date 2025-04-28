@@ -47,6 +47,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Force upgrade yt-dlp to latest version
+echo "Upgrading yt-dlp to latest version..."
+pip install --upgrade --force-reinstall yt-dlp
+if [ $? -ne 0 ]; then
+    echo "Failed to upgrade yt-dlp"
+    exit 1
+fi
+
 # Check for ffmpeg
 if ! command -v ffmpeg &> /dev/null; then
     echo

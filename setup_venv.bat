@@ -55,6 +55,14 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+:: Force upgrade yt-dlp to latest version
+pip install --upgrade --force-reinstall yt-dlp
+if %errorlevel% neq 0 (
+    echo Failed to upgrade yt-dlp
+    pause
+    exit /b 1
+)
+
 :: Check for ffmpeg
 where ffmpeg >nul 2>&1
 if %errorlevel% neq 0 (

@@ -79,6 +79,13 @@ sudo apt install ffmpeg
 brew install ffmpeg
 ```
 
+## Setup
+
+1. Run `setup_venv.sh` (Linux/Mac) or `setup_venv.bat` (Windows)
+2. Get your user agent from [whatmyuseragent.com](https://whatmyuseragent.com/)
+3. Get cookies using the [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/cclelndahbckbenkjhflpdbgdldlbecc?utm_source=item-share-cb) Chrome extension
+4. Start the application with `start.sh` (Linux/Mac) or `start.bat` (Windows)
+
 ## Usage
 
 1. Start the application (double-click the .bat File):

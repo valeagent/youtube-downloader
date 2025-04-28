@@ -8,6 +8,7 @@ import shutil
 import json
 from datetime import datetime
 import random
+import webbrowser
 
 class YouTubeDownloader:
     def __init__(self, root):
@@ -22,15 +23,6 @@ class YouTubeDownloader:
         # Set a dark theme
         self.root.configure(bg='#2b2b2b')
         
-        # Geeky jokes
-        self.jokes = [
-            "Why do programmers prefer dark mode? Because light attracts bugs!",
-            "There are 10 types of people in this world: those who understand binary and those who don't.",
-            "Why did the programmer quit his job? He didn't get arrays!",
-            "Debugging: Being the detective in a crime movie where you are also the murderer.",
-            "Why do Python programmers prefer snakes? Because they're afraid of semicolons!"
-        ]
-        
         # Check dependencies
         self.check_dependencies()
         
@@ -38,26 +30,16 @@ class YouTubeDownloader:
         self.main_frame = ttk.Frame(root, padding="10")
         self.main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
-        # Add a geeky joke label
-        self.joke_label = ttk.Label(
-            self.main_frame,
-            text=random.choice(self.jokes),
-            font=('Helvetica', 10, 'italic'),
-            foreground='#00ff00',
-            background='#2b2b2b'
-        )
-        self.joke_label.grid(row=0, column=0, columnspan=3, pady=(0, 10))
-        
         # URL input
         ttk.Label(
             self.main_frame,
             text="YouTube URL:",
             foreground='white',
             background='#2b2b2b'
-        ).grid(row=1, column=0, sticky=tk.W)
+        ).grid(row=0, column=0, sticky=tk.W)
         
         self.url_entry = ttk.Entry(self.main_frame, width=50)
-        self.url_entry.grid(row=1, column=1, columnspan=2, sticky=(tk.W, tk.E), padx=5)
+        self.url_entry.grid(row=0, column=1, columnspan=2, sticky=(tk.W, tk.E), padx=5)
         
         # Cookies input
         cookies_frame = ttk.LabelFrame(
@@ -65,14 +47,22 @@ class YouTubeDownloader:
             text="Cookies (for age-restricted/private videos)",
             padding="5"
         )
-        cookies_frame.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=5)
+        cookies_frame.grid(row=1, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=5)
         
         ttk.Label(
             cookies_frame,
-            text="Paste cookies from 'Get cookies.txt' Chrome extension:",
+            text="Get fresh cookies while signed in to YouTube:",
             foreground='white',
             background='#2b2b2b'
         ).grid(row=0, column=0, sticky=tk.W)
+        
+        # Get Cookies button with hyperlink
+        self.get_cookies_btn = ttk.Button(
+            cookies_frame,
+            text="Get Cookies Extension",
+            command=lambda: webbrowser.open("https://chromewebstore.google.com/detail/cclelndahbckbenkjhflpdbgdldlbecc?utm_source=item-share-cb")
+        )
+        self.get_cookies_btn.grid(row=0, column=1, sticky=tk.W, padx=5)
         
         self.cookies_text = scrolledtext.ScrolledText(
             cookies_frame,
@@ -100,7 +90,7 @@ class YouTubeDownloader:
             text="Download Options",
             padding="5"
         )
-        options_frame.grid(row=3, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=5)
+        options_frame.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=5)
         
         # Format selection
         ttk.Label(
@@ -134,7 +124,20 @@ class YouTubeDownloader:
             text="Download",
             command=self.start_download
         )
-        self.download_btn.grid(row=4, column=1, pady=10)
+        self.download_btn.grid(row=3, column=1, pady=10)
+        
+        # Nuclear Button
+        self.nuclear_btn = ttk.Button(
+            self.main_frame,
+            text="Nuclear Button",
+            command=self.nuclear_button,
+            style='Danger.TButton'
+        )
+        self.nuclear_btn.grid(row=3, column=2, pady=10, padx=5)
+        
+        # Create a style for the nuclear button
+        style = ttk.Style()
+        style.configure('Danger.TButton', foreground='red')
         
         # Log area
         self.log_text = scrolledtext.ScrolledText(
@@ -144,11 +147,11 @@ class YouTubeDownloader:
             bg='#1e1e1e',
             fg='#00ff00'
         )
-        self.log_text.grid(row=5, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
+        self.log_text.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
         
         # Configure grid weights
         self.main_frame.columnconfigure(1, weight=1)
-        self.main_frame.rowconfigure(5, weight=1)
+        self.main_frame.rowconfigure(4, weight=1)
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
         
@@ -312,6 +315,46 @@ class YouTubeDownloader:
             self.root.after(100, self.check_download_status, thread)
         else:
             self.download_btn.config(state='normal')
+
+    def nuclear_button(self):
+        """Nuclear Button: Force upgrade yt-dlp and clear all caches."""
+        if messagebox.askyesno("Nuclear Button", 
+            "This will:\n"
+            "1. Force upgrade yt-dlp to the latest version\n"
+            "2. Clear all caches\n"
+            "3. Restart the application\n\n"
+            "Are you sure you want to proceed?"):
+            
+            self.log("Nuclear Button activated! Initiating system reset...")
+            
+            try:
+                # Force upgrade yt-dlp
+                self.log("Upgrading yt-dlp...")
+                subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "--force-reinstall", "yt-dlp"], 
+                             check=True, capture_output=True, text=True)
+                self.log("yt-dlp upgraded successfully")
+                
+                # Clear caches
+                self.log("Clearing caches...")
+                cache_dirs = [
+                    os.path.expanduser("~/.cache/yt-dlp"),
+                    os.path.expanduser("~/.cache/youtube-dl")
+                ]
+                for cache_dir in cache_dirs:
+                    if os.path.exists(cache_dir):
+                        shutil.rmtree(cache_dir)
+                        self.log(f"Cleared cache: {cache_dir}")
+                
+                self.log("System reset complete! Restarting application...")
+                messagebox.showinfo("Success", "System reset complete! The application will now restart.")
+                
+                # Restart the application
+                python = sys.executable
+                os.execl(python, python, *sys.argv)
+                
+            except Exception as e:
+                self.log(f"Error during system reset: {str(e)}")
+                messagebox.showerror("Error", f"Failed to complete system reset: {str(e)}")
 
 if __name__ == "__main__":
     root = tk.Tk()
