@@ -1,10 +1,12 @@
 # YouTube Downloader
 
+#TLDR: double-click the setup_venv.bat File once you configured the system double-click the start.bat File
+
 A user-friendly desktop application for downloading YouTube videos and audio using yt-dlp.
 
 ## Features
 
-- Download YouTube videos in various qualities (360p to 720p)
+- Download YouTube videos in various qualities (mp4)
 - Download audio-only (MP3)
 - Support for age-restricted and private videos using cookies
 - Simple and intuitive GUI interface
@@ -28,10 +30,16 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
    cd youtube-downloader
    ```
 
-2. Run the setup script:
+2. Run the setup script (double-click the .bat File):
    ```bash
    setup_venv.bat
    ```
+
+3. **User Agent Setup**:
+   - During setup, you will be prompted to enter your browser's user agent.
+   - Open your web browser (Chrome, Firefox, etc.) and visit [https://www.whatismybrowser.com/](https://www.whatismybrowser.com/).
+   - Look for "User Agent" and copy the entire string.
+   - Paste it into the terminal when prompted.
 
 ### Linux/Mac
 
@@ -47,12 +55,18 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
    ./setup_venv.sh
    ```
 
+3. **User Agent Setup**:
+   - During setup, you will be prompted to enter your browser's user agent.
+   - Open your web browser (Chrome, Firefox, etc.) and visit [https://www.whatismybrowser.com/](https://www.whatismybrowser.com/).
+   - Look for "User Agent" and copy the entire string.
+   - Paste it into the terminal when prompted.
+
 ## FFmpeg Installation
 
 ### Windows
 1. Download FFmpeg from https://ffmpeg.org/download.html
 2. Extract the files
-3. Add the `bin` folder to your system PATH
+3. Add the `bin` folder to your system PATH !
 
 ### Linux
 ```bash
@@ -67,7 +81,7 @@ brew install ffmpeg
 
 ## Usage
 
-1. Start the application:
+1. Start the application (double-click the .bat File):
    - Windows: Run `start.bat`
    - Linux/Mac: Run `./start.sh`
 
@@ -124,6 +138,7 @@ brew install ffmpeg
   4. Check if the video is still available
 - **Python not found**: Ensure Python 3.11+ is installed and in your system PATH
 - **Cookies not working**: Get fresh cookies from the Chrome extension
+- **User Agent Issues**: If downloads fail, try updating your user agent by running `setup_user_agent.bat` (Windows) or `./setup_user_agent.sh` (Linux/Mac)
 
 ## License
 

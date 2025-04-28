@@ -59,6 +59,16 @@ fi
 # Create downloads directory
 mkdir -p downloads
 
+# Setup user agent
+echo
+echo "Setting up user agent..."
+chmod +x setup_user_agent.sh
+./setup_user_agent.sh
+if [ $? -ne 0 ]; then
+    echo "Failed to setup user agent"
+    exit 1
+fi
+
 echo
 echo "Setup completed successfully!"
 echo

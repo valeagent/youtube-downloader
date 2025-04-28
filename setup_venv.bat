@@ -68,6 +68,16 @@ if %errorlevel% neq 0 (
 :: Create downloads directory
 if not exist downloads mkdir downloads
 
+:: Setup user agent
+echo.
+echo Setting up user agent...
+call setup_user_agent.bat
+if %errorlevel% neq 0 (
+    echo Failed to setup user agent
+    pause
+    exit /b 1
+)
+
 echo.
 echo Setup completed successfully!
 echo.

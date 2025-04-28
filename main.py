@@ -5,6 +5,7 @@ import threading
 import os
 import sys
 import shutil
+import json
 from datetime import datetime
 import random
 
@@ -14,6 +15,9 @@ class YouTubeDownloader:
         self.root.title("YouTube Downloader")
         self.root.geometry("800x600")
         self.root.resizable(True, True)
+        
+        # Load user agent from config
+        self.user_agent = self.load_user_agent()
         
         # Set a dark theme
         self.root.configure(bg='#2b2b2b')
@@ -152,6 +156,15 @@ class YouTubeDownloader:
         if not os.path.exists('downloads'):
             os.makedirs('downloads')
 
+    def load_user_agent(self):
+        """Load user agent from config.json."""
+        try:
+            with open('config.json', 'r') as f:
+                config = json.load(f)
+                return config.get('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36')
+        except FileNotFoundError:
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'
+
     def check_dependencies(self):
         """Check for required dependencies and show error messages if missing."""
         missing_deps = []
@@ -234,16 +247,17 @@ class YouTubeDownloader:
             return
 
         try:
-            user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
-            
             # Build the command
             cmd = [
                 "yt-dlp",
                 "--no-playlist",
-                "--user-agent", user_agent,
-                "-f", self.get_format(),
+                "--user-agent", self.user_agent,
                 "-o", "downloads/%(title)s [%(id)s].%(ext)s"
             ]
+
+            # Add format if not "best"
+            if self.get_format() != "best":
+                cmd.extend(["-f", self.get_format()])
 
             # Add cookies if available
             if os.path.exists('cookies.txt'):
