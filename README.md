@@ -1,6 +1,6 @@
 # YouTube Downloader
 
-#TLDR: double-click the setup_venv.bat File once you configured the system double-click the start.bat File
+### TLDR: Install ffmpeg -> double-click: setup_venv.bat -> double-click: start.bat
 
 A user-friendly desktop application for downloading YouTube videos and audio using yt-dlp.
 
@@ -18,7 +18,7 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
 
 - Python 3.11 or higher
 - FFmpeg (required for audio extraction and format conversion)
-- yt-dlp (will be installed automatically)
+- Get cookies using the [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/cclelndahbckbenkjhflpdbgdldlbecc?utm_source=item-share-cb) Chrome extension
 
 ## Installation
 
@@ -37,7 +37,7 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
 
 3. **User Agent Setup**:
    - During setup, you will be prompted to enter your browser's user agent.
-   - Open your web browser (Chrome, Firefox, etc.) and visit [https://www.whatismybrowser.com/](https://www.whatismybrowser.com/).
+   - Open your web browser (Chrome, Firefox, etc.) and visit [https://whatmyuseragent.com/](https://whatmyuseragent.com/).
    - Look for "User Agent" and copy the entire string.
    - Paste it into the terminal when prompted.
 
@@ -95,9 +95,10 @@ brew install ffmpeg
 2. For age-restricted or private videos:
    - Install the "Get cookies.txt" Chrome extension
    - Log in to YouTube in Chrome
-   - Click the extension icon and select "Copy contents"
+   - Click the extension icon and click "Copy" to copy all your cookies"
    - Paste the contents into the cookies text area in the application
-   - Click "Save Cookies"
+   - Click "Save Cookies" !
+   - (If dowload failed - delete the cookies in the text ares and paste new ones)
 
 3. Enter the YouTube URL and select your desired format and media type
 4. Click "Download"
@@ -118,34 +119,15 @@ brew install ffmpeg
      3. Click "Save Cookies"
      4. Try downloading again
 
-3. **Age-Restricted Videos**:
-   - Some videos require cookies even if they're not marked as private
-   - Always try using cookies if a download fails
-
-4. **FFmpeg Issues**:
+3. **FFmpeg Issues**:
    - If you see errors about "ffmpeg not found", ensure FFmpeg is:
      1. Installed correctly
      2. Added to your system PATH
      3. Restart the application after installing FFmpeg
-
-### Error Messages
-
-- **"Video unavailable"**: Usually means the video is private, deleted, or region-locked
-- **"Sign in to confirm your age"**: Requires fresh cookies
-- **"ffmpeg not found"**: FFmpeg is not installed or not in PATH
-- **"yt-dlp error"**: Usually means yt-dlp needs to be updated
-
-## Troubleshooting
-
-- **FFmpeg not found**: Ensure FFmpeg is installed and in your system PATH
-- **Download fails**: 
-  1. Check your internet connection
-  2. Try using fresh cookies
-  3. Update yt-dlp
-  4. Check if the video is still available
+### Troubleshooting
 - **Python not found**: Ensure Python 3.11+ is installed and in your system PATH
 - **Cookies not working**: Get fresh cookies from the Chrome extension
-- **User Agent Issues**: If downloads fail, try updating your user agent by running `setup_user_agent.bat` (Windows) or `./setup_user_agent.sh` (Linux/Mac)
+- **User Agent Issues**: If downloads fail, try updating your user agent by running `setup_user_agent.bat` (Windows) or `./setup_user_agent.sh` (Linux/Mac) again
 
 ## License
 

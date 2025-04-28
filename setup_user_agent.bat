@@ -9,7 +9,7 @@ echo To download videos, we need your browser's user agent.
 echo Please follow these steps:
 echo.
 echo 1. Open your web browser (Chrome, Firefox, etc.)
-echo 2. Visit https://www.whatismybrowser.com/
+echo 2. Visit https://whatmyuseragent.com/
 echo 3. Look for "User Agent" and copy the entire string
 echo 4. Paste it below when prompted
 echo.
