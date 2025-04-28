@@ -8,11 +8,7 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
 
 - Download YouTube videos in various qualities (mp4)
 - Download audio-only (MP3)
-- Support for age-restricted and private videos using cookies
-- Simple and intuitive GUI interface
-- Real-time download progress logging
-- Dark theme with colored output
-- Random geeky jokes to brighten your day!
+- nuclear button
 
 ## Prerequisites
 
@@ -26,7 +22,7 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/youtube-downloader.git
+   git clone https://github.com/valeagent/youtube-downloader.git
    cd youtube-downloader
    ```
 
@@ -45,7 +41,7 @@ A user-friendly desktop application for downloading YouTube videos and audio usi
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/youtube-downloader.git
+   git clone https://github.com/valeagent/youtube-downloader.git
    cd youtube-downloader
    ```
 
@@ -81,7 +77,7 @@ brew install ffmpeg
 
 ## Setup
 
-1. Run `setup_venv.sh` (Linux/Mac) or `setup_venv.bat` (Windows)
+1. Run `setup_venv.sh` (Linux/Mac) or `setup_venv.bat` (Windows) (if windows warns: click more info - execute anyways)
 2. Get your user agent from [whatmyuseragent.com](https://whatmyuseragent.com/)
 3. Get cookies using the [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/cclelndahbckbenkjhflpdbgdldlbecc?utm_source=item-share-cb) Chrome extension
 4. Start the application with `start.sh` (Linux/Mac) or `start.bat` (Windows)
@@ -101,9 +97,18 @@ brew install ffmpeg
    - (If dowload failed - delete the cookies in the text ares and paste new ones)
 
 3. Enter the YouTube URL and select your desired format and media type
+   - ideally the link should look like this: 
+      -https://www.youtube.com/watch?v=hPr-Yc92qaY
+      or
+      -https://youtu.be/hPr-Yc92qaY
+   - without playlist flags
 4. Click "Download"
 
 ## Common Issues and Solutions
+
+Shorts are difficult and almost impossible to download :/
+one way is to go from a link like this: https://www.youtube.com/shorts/SXHMnicI6Pg
+to https://www.youtube.com/watch/SXHMnicI6Pg and then gett he link - but the format might not be 9:16. If you really need shorts integration ask me.
 
 ### Download Failures
 

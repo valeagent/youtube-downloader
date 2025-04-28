@@ -10,6 +10,16 @@ from datetime import datetime
 import random
 import webbrowser
 
+# Window hiding setup for subprocesses
+if sys.platform == 'win32':
+    STARTUPINFO = subprocess.STARTUPINFO()
+    STARTUPINFO.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    STARTUPINFO.wShowWindow = subprocess.SW_HIDE
+    CREATE_NO_WINDOW = 0x08000000
+else:
+    STARTUPINFO = None
+    CREATE_NO_WINDOW = 0
+
 class YouTubeDownloader:
     def __init__(self, root):
         self.root = root
@@ -274,15 +284,16 @@ class YouTubeDownloader:
             cmd.append(url)
 
             self.log(f"Starting download: {url}")
-            self.log(f"Command: {' '.join(cmd)}")
             
-            # Run the command and capture output
+            # Run the command and capture output with hidden window
             process = subprocess.Popen(
                 cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 universal_newlines=True,
-                bufsize=1
+                bufsize=1,
+                startupinfo=STARTUPINFO,
+                creationflags=CREATE_NO_WINDOW if sys.platform == 'win32' else 0
             )
 
             # Read output in real-time
@@ -293,14 +304,13 @@ class YouTubeDownloader:
             process.wait()
             
             if process.returncode == 0:
-                self.log("Download completed successfully!")
-                messagebox.showinfo("Success", "Download completed successfully!")
+                self.log("✅ Download completed successfully!")
             else:
-                self.log(f"Download failed with return code {process.returncode}")
+                self.log(f"❌ Download failed with return code {process.returncode}")
                 messagebox.showerror("Error", "Download failed. Check the log for details.")
 
         except Exception as e:
-            self.log(f"Error during download: {str(e)}")
+            self.log(f"❌ Error during download: {str(e)}")
             messagebox.showerror("Error", f"Download failed: {str(e)}")
 
     def start_download(self):
@@ -317,44 +327,25 @@ class YouTubeDownloader:
             self.download_btn.config(state='normal')
 
     def nuclear_button(self):
-        """Nuclear Button: Force upgrade yt-dlp and clear all caches."""
-        if messagebox.askyesno("Nuclear Button", 
-            "This will:\n"
-            "1. Force upgrade yt-dlp to the latest version\n"
-            "2. Clear all caches\n"
-            "3. Restart the application\n\n"
-            "Are you sure you want to proceed?"):
-            
-            self.log("Nuclear Button activated! Initiating system reset...")
-            
-            try:
-                # Force upgrade yt-dlp
-                self.log("Upgrading yt-dlp...")
-                subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "--force-reinstall", "yt-dlp"], 
-                             check=True, capture_output=True, text=True)
-                self.log("yt-dlp upgraded successfully")
-                
-                # Clear caches
-                self.log("Clearing caches...")
-                cache_dirs = [
-                    os.path.expanduser("~/.cache/yt-dlp"),
-                    os.path.expanduser("~/.cache/youtube-dl")
-                ]
-                for cache_dir in cache_dirs:
-                    if os.path.exists(cache_dir):
-                        shutil.rmtree(cache_dir)
-                        self.log(f"Cleared cache: {cache_dir}")
-                
-                self.log("System reset complete! Restarting application...")
-                messagebox.showinfo("Success", "System reset complete! The application will now restart.")
-                
-                # Restart the application
-                python = sys.executable
-                os.execl(python, python, *sys.argv)
-                
-            except Exception as e:
-                self.log(f"Error during system reset: {str(e)}")
-                messagebox.showerror("Error", f"Failed to complete system reset: {str(e)}")
+        """Nuclear Button: Opens a random YouTube video."""
+        videos = [
+            "https://youtu.be/hPr-Yc92qaY",
+            "https://www.youtube.com/shorts/TTkyTyDF5UI?feature=share",
+            "https://youtu.be/koSlcu3BeoM",
+            "https://www.youtube.com/shorts/sIuqGpVwe-c?feature=share",
+            "https://youtu.be/K0MrsF93-iM",
+            "https://youtu.be/VQ7lKPSUc2g",
+            "https://youtu.be/TNUVlnujyrQ",
+            "https://www.youtube.com/shorts/KyQ6VeywlSI?feature=share",
+            "https://youtu.be/SfT4FMkh1-w",
+            "https://youtu.be/rARcuKAgKbI",
+            "https://youtu.be/CCVlrOVZLiw",
+            "https://youtu.be/_ELyfelxkU8",
+            "https://youtu.be/CBEvfZu4HE4",
+            "https://youtu.be/8Pc0AEbfnBM",
+            "https://youtu.be/EmnBALSQUKM"
+        ]
+        webbrowser.open(random.choice(videos))
 
 if __name__ == "__main__":
     root = tk.Tk()
