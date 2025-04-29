@@ -2,11 +2,11 @@
 
 ### TLDR: Install ffmpeg -> double-click: setup_venv.bat -> double-click: start.bat
 
-A user-friendly desktop application for downloading YouTube videos and audio using yt-dlp.
+A user-friendly desktop application for downloading YouTube videos using yt-dlp.
 
 ## Features
 
-- Download YouTube videos in various qualities (mp4)
+- Download YouTube videos and shorts in various qualities (mp4)
 - Download audio-only (MP3)
 - nuclear button
 
@@ -88,29 +88,24 @@ brew install ffmpeg
    - Windows: Run `start.bat`
    - Linux/Mac: Run `./start.sh`
 
-2. For age-restricted or private videos:
+2. Get cookies.txt:
    - Install the "Get cookies.txt" Chrome extension
    - Log in to YouTube in Chrome
-   - Click the extension icon and click "Copy" to copy all your cookies"
-   - Paste the contents into the cookies text area in the application
+   - Click the extension icon and click "Copy" to copy all your cookies
+   - Paste the contents into the cookies text area in the application GUI
    - Click "Save Cookies" !
-   - (If dowload failed - delete the cookies in the text ares and paste new ones)
+   - (If dowload failed - delete the cookies in the text area (ctrl + A : selects all) and paste new ones)
 
 3. Enter the YouTube URL and select your desired format and media type
-   - ideally the link should look like this: 
-      -https://www.youtube.com/watch?v=hPr-Yc92qaY
-      or
-      -https://youtu.be/hPr-Yc92qaY
-   - without playlist flags
+   - ideally the link should look like this:
+      https://youtu.be/hPr-Yc92qaY
+      or for shorts
+      https://www.youtube.com/shorts/Dc-7WNoBYqc?feature=share
+   - without playlist flags - just watch the video -> right click on the video -> select copy video url
 4. Click "Download"
 
-## Common Issues and Solutions
 
-Shorts are difficult and almost impossible to download :/
-one way is to go from a link like this: https://www.youtube.com/shorts/SXHMnicI6Pg
-to https://www.youtube.com/watch/SXHMnicI6Pg and then gett he link - but the format might not be 9:16. If you really need shorts integration ask me.
-
-### Download Failures
+## Download Failures
 
 1. **Outdated yt-dlp**:
    - If you see errors about "This video is unavailable" or "Video unavailable", your yt-dlp version might be outdated
